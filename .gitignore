@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Session data (changes every interaction)
+session_db/
+
+# Chat data (changes every time)
+data/
+
+# Reply contacts (changes)
+replied_contacts.json
+
+# Logs
+*.log
+
+# Runtime stuff
+/pid
+*.pid
+*.seed
+.yarn/*
+!yarn.lock
+
+# Coolify / platform stuff
+deployments/
