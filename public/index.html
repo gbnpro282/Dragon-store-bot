@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dragon Store — Panel Admin</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <!-- Layar Login / Aktivasi -->
+    <div id="loginScreen" class="login-screen" style="display:none;">
+        <div class="login-card">
+            <div class="login-brand">🐉 Dragon Store</div>
+            <div class="login-sub">Panel Admin & Karyawan</div>
+            <div id="loginNotice" class="login-notice" style="display:none;"></div>
+
+            <!-- Step 1: Nomor + Password -->
+            <div id="stepPhone" class="login-step">
+                <label class="field-label">Nomor Telepon (Terdaftar Owner)</label>
+                <input id="inputPhone" class="field-input" type="tel" placeholder="08xxxxxxxxxx" autocomplete="username" />
+                <div id="passwordArea" class="password-area" style="display:none;">
+                    <label class="field-label" id="passwordLabel">Password</label>
+                    <input id="inputPassword" class="field-input" type="password" placeholder="••••••" autocomplete="current-password" />
+                    <div id="confirmPasswordWrap" style="display:none;">
+                        <label class="field-label">Confirm Password</label>
+                        <input id="inputConfirmPassword" class="field-input" type="password" placeholder="••••••" autocomplete="new-password" />
+                    </div>
+                </div>
+                <div id="stepError" class="step-error"></div>
+                <button id="btnNext" class="btn-primary">Lanjut</button>
+            </div>
+
+            <!-- Step 2: OTP -->
+            <div id="stepOtp" class="login-step" style="display:none;">
+                <label class="field-label">Masukkan nomor OTP yang dikirim WhatsApp bisnis ke nomormu</label>
+                <input id="inputOtp" class="field-input" inputmode="numeric" maxlength="6" placeholder="• • • • • •" />
+                <div id="otpError" class="step-error"></div>
+                <div id="otpResend" class="otp-resend" style="text-align: right; margin-top: 10px;"></div>
+                <button id="btnOtpNext" class="btn-primary">Verifikasi OTP</button>
+            </div>
+
+            <!-- Step 3: Username (hanya account unactivated) -->
+            <div id="stepUsername" class="login-step" style="display:none;">
+                <label class="field-label">Buat Username</label>
+                <input id="inputUsername" class="field-input" placeholder="misal: admin_rian" />
+                <div id="usernameError" class="step-error"></div>
+                <button id="btnUsernameNext" class="btn-primary">Simpan & Masuk</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aplikasi Utama -->
+    <div id="appScreen" style="display:none;">
+        <nav id="glassNavbar" class="glass-navbar">
+            <div class="nav-brand">🐉 Dragon Store</div>
+            <div id="navTabs" class="nav-tabs"></div>
+            <button id="btnLogout" class="nav-logout">Logout</button>
+        </nav>
+
+        <!-- QR scan panel (owner, saat tidak tertaut) -->
+        <div id="qrBanner" class="qr-banner" style="display:none;">
+            <div class="qr-title">⚠️ Bot WhatsApp tidak tertaut</div>
+            <p class="qr-desc">Scan QR ini lewat WhatsApp
+                <span class="scan-path">Perangkat Tertaut → Tautkan Perangkat</span>.
+                QR akan diperbarui otomatis. Kamu wajib login dulu sebelum scan.</p>
+            <div id="qrImageWrap" class="qr-image-wrap">
+                <div id="qrWaiting" class="qr-waiting">Menunggu kode QR dari server…</div>
+                <img id="qrImage" alt="QR Code" style="display:none;" />
+            </div>
+        </div>
+
+        <main id="viewContainer"></main>
+    </div>
+
+    <div id="toastWrap" class="toast-wrap"></div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
